@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+	<bean id="mostrarHoraServidorSingleton" class="com.samussoft.ejercicio1.impl.MostrarHoraServidorImpl" />
+	<bean id="mostrarHoraServidor" class="com.samussoft.ejercicio1.impl.MostrarHoraServidorImpl"
+		scope="prototype" />
 
+	<bean id="mostrarFechaHora"
+		class="com.samussoft.ejercicio1.impl.MostrarFechayHoraServidorImpl">
+		<property name="mostrarHoraServidor" ref="mostrarHoraServidor" />
+	</bean>
+
+	<bean id="mostrarFechaHoraPais"
+		class="com.samussoft.ejercicio1.impl.MostrarFechayHorayPaisImpl">
+		<property name="mostrarHoraServidor" ref="mostrarHoraServidorSingleton"></property>
+	</bean>
+
+	<bean id="mostrarFechaHoraPaisLenguaje"
+		class="com.samussoft.ejercicio1.impl.MostrarFechayHorayPaisyLenguajeImpl">
+		<property name="mostrarHoraServidor" ref="mostrarHoraServidorSingleton"></property>
+	</bean>
 </beans>
