@@ -1,11 +1,11 @@
-package com.samussoft.ejercicio1.impl;
+package com.samussoft.alcancebeans.impl;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import org.apache.log4j.Logger;
 
-import com.samussoft.ejercicio1.MostrarHoraServidor;
+import com.samussoft.alcancebeans.MostrarHoraServidor;
 
 public class MostrarHoraServidorImpl implements MostrarHoraServidor {
 

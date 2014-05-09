@@ -1,4 +1,4 @@
-package com.samussoft.ejercicio1;
+package com.samussoft.alcancebeans;
 
 public interface MostrarHoraServidor {
 	public void mostrarHora();

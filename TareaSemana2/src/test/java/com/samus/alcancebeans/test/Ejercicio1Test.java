@@ -1,4 +1,4 @@
-package com.samus.ejercicio.test;
+package com.samus.alcancebeans.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -11,8 +11,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.samussoft.ejercicio1.MostrarFechayHoraServidor;
-import com.samussoft.ejercicio1.MostrarHoraServidor;
+import com.samussoft.alcancebeans.MostrarFechayHoraServidor;
+import com.samussoft.alcancebeans.MostrarHoraServidor;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:system-test-config.xml" })
