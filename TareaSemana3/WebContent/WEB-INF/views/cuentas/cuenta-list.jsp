@@ -3,6 +3,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <html>
+<head>
+	<script src="resources/js/jquery.js"></script>
+	<script type="text/javascript">
+	function fueHecho(datosRespuesta)
+	{
+		alert("Cuenta pagada con éxito");
+	}
+	
+	function pagarAhora(id) {
+		//$.get("pagarCuenta?id=" + id,fueHecho);
+		$.post("pagarCuenta", {'id' : id}, function() {
+			$("#cuenta_"+id).html("Pago");
+		});
+	}
+	</script>
+</head>
 <body>
 	<table style="height: 10px; width: 775px;" border="1">
 		<tr>
@@ -20,7 +36,7 @@
 				<td>${cuenta.descripcion}</td>
 				<td>${cuenta.valor}</td>
 				<td>${cuenta.tipo}</td>
-				<td id="tarifa_${cuenta.id}">
+				<td id="cuenta_${cuenta.id}">
 					<c:if test="${cuenta.pago eq false}">
 						No pago
 					</c:if> 
@@ -32,6 +48,7 @@
 						pattern="dd/MM/yyyy" /></td>
 				<td>
 					<a href="eliminarCuenta?id=${cuenta.id}">Eliminar</a>
+					<a href="#" onclick="pagarAhora(${cuenta.id});">Pagar</a>
 					<a href="muestraCuenta?id=${cuenta.id}">Modificar</a>
 				</td>
 			</tr>

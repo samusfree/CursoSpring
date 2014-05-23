@@ -11,7 +11,12 @@
 
 	<context:component-scan base-package="com.mycompany.cuentas" />
 	<mvc:annotation-driven />
+	<mvc:default-servlet-handler />
 
+	<mvc:interceptors>
+		<bean class="com.mycompany.cuentas.interceptor.AutorizadorInterceptor" />
+	</mvc:interceptors>
+	<!--  
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="org.hsqldb.jdbcDriver" />
 		<property name="url" value=" jdbc:hsqldb:file:cuentas.db" />
@@ -22,8 +27,16 @@
 		<property name="poolPreparedStatements" value="true" />
 		<property name="maxOpenPreparedStatements" value="10" />
 	</bean>
-
-
+	-->
+	
+	
+	<bean id="mysqlDataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="org.hsqldb.jdbcDriver" />
+		<property name="url" value="jdbc:hsqldb:file:cuentas.db" />
+		<property name="username" value="sa" />
+		<property name="password" value="" />
+	</bean>
+	
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/views/" />

@@ -9,16 +9,22 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import com.mycompany.cuentas.ConnectionFactory;
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import com.mycompany.cuentas.modelo.Cuenta;
 import com.mycompany.cuentas.modelo.TipoDeCuenta;
 
+@Repository("cuentaDAO")
 public class CuentaDAO {
 	private Connection connection;
 
-	public CuentaDAO() {
+	@Autowired
+	public CuentaDAO(DataSource dataSource) {
 		try {
-			this.connection = new ConnectionFactory().getConnection();
+			this.connection = dataSource.getConnection();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -34,11 +40,10 @@ public class CuentaDAO {
 			stmt.setDouble(3, cuenta.getValor());
 			stmt.setString(4, cuenta.getTipo().name());
 			stmt.execute();
-			connection.close();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-		
+
 	}
 
 	public void eliminar(Cuenta cuenta) {
@@ -53,8 +58,6 @@ public class CuentaDAO {
 			stmt = connection.prepareStatement(sql);
 			stmt.setLong(1, cuenta.getId());
 			stmt.execute();
-			
-			connection.close();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -74,9 +77,7 @@ public class CuentaDAO {
 			stmt.setDouble(5, cuenta.getValor());
 			stmt.setLong(6, cuenta.getId());
 			stmt.execute();
-			
-			connection.close();
-			
+
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -97,8 +98,6 @@ public class CuentaDAO {
 
 			rs.close();
 			stmt.close();
-			connection.close();
-
 			return cuentas;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -107,7 +106,6 @@ public class CuentaDAO {
 
 	public Cuenta buscarPorId(Long id) {
 
-		
 		if (id == null) {
 			throw new IllegalStateException("Id de la cuenta no debe ser nulo.");
 		}
@@ -119,15 +117,11 @@ public class CuentaDAO {
 			ResultSet rs = stmt.executeQuery();
 
 			if (rs.next()) {
-				connection.close();
 				return poblarCuenta(rs);
 			}
 
 			rs.close();
 			stmt.close();
-			
-
-			connection.close();
 			return null;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -148,8 +142,8 @@ public class CuentaDAO {
 			stmt.setDate(2, new Date(Calendar.getInstance().getTimeInMillis()));
 			stmt.setLong(3, id);
 			stmt.execute();
-			
-			connection.close();
+
+			//connection.close();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -169,9 +163,9 @@ public class CuentaDAO {
 			fechaPago.setTime(fecha);
 			cuenta.setFechaPago(fechaPago);
 		}
-		
+
 		cuenta.setTipo(Enum.valueOf(TipoDeCuenta.class, rs.getString("tipo")));
-		
+
 		return cuenta;
 	}
 }
